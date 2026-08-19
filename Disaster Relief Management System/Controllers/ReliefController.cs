@@ -34,6 +34,7 @@ public class ReliefController : ControllerBase
     public async Task<IActionResult> Create(ReliefRequest request)
     {
         var created = await _service.CreateAsync(request);
-        return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
+        // scaffolded model uses RequestId as the key
+        return CreatedAtAction(nameof(Get), new { id = created.RequestId }, created);
     }
 }
