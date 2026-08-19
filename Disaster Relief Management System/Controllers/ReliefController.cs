@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Disaster_Relief_Management_System.Services.Interfaces;
-using Disaster_Relief_Management_System.Services.Models;
+using Service.Models;
 
 namespace Disaster_Relief_Management_System.Controllers;
 

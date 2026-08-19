@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Disaster_Relief_Management_System.Services.Data;
+using Service.Data;
 using Disaster_Relief_Management_System.Services.Interfaces;
-using Disaster_Relief_Management_System.Services.Models;
+using Service.Models;
 
 namespace Disaster_Relief_Management_System.Services.Services;
 

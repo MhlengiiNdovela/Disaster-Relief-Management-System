@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace Disaster_Relief_Management_System.Services.Models;
+namespace Service.Models;
 
 public partial class Volunteer
 {
@@ -9,17 +9,9 @@ public partial class Volunteer
 
     public int UserId { get; set; }
 
-    public string? PhoneNumber { get; set; }
-
     public string? Address { get; set; }
 
     public string? Availability { get; set; }
-
-    public string? Skills { get; set; }
-
-    public bool IsAvailable { get; set; }
-
-    public DateTime CreatedAt { get; set; }
 
     public virtual User User { get; set; } = null!;
 }

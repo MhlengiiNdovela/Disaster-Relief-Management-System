@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace Disaster_Relief_Management_System.Services.Models;
+namespace Service.Models;
 
 public partial class Resource
 {
@@ -11,13 +11,11 @@ public partial class Resource
 
     public string ResourceType { get; set; } = null!;
 
-    public string? Description { get; set; }
-
     public decimal Quantity { get; set; }
 
-    public string? Unit { get; set; }
+    public string Unit { get; set; } = null!;
 
-    public string? Location { get; set; }
+    public string Location { get; set; } = null!;
 
     public bool IsAvailable { get; set; }
 

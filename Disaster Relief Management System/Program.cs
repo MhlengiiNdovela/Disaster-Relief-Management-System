@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Disaster_Relief_Management_System.Services.Data;
+using Service.Data;
 using Disaster_Relief_Management_System.Services.Interfaces;
 using Disaster_Relief_Management_System.Services.Services;
 

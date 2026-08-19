@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace Disaster_Relief_Management_System.Services.Models;
+namespace Service.Models;
 
 public partial class User
 {

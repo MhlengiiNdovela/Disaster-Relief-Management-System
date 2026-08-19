@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using Disaster_Relief_Management_System.Services.Models;
+using Service.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Disaster_Relief_Management_System.Services.Data;
+namespace Service.Data;
 
 public partial class GiftDbContext : DbContext
 {

@@ -24,6 +24,12 @@
     </PackageReference>
   </ItemGroup>
 
-  <!-- ProjectReference to external Service project removed. Service code has been included directly in the main project to avoid restore issues in this environment. -->
+  <ItemGroup>
+    <Folder Include="Services\Data\" />
+    <Folder Include="Services\Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Service\Service.csproj" />
+  </ItemGroup>
 
 </Project>
