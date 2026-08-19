@@ -31,8 +31,10 @@ public partial class GiftDbContext : DbContext
     public virtual DbSet<Volunteer> Volunteers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=tcp:gift-of-the-givers-sql.database.windows.net,1433;Initial Catalog=GiftOfTheGiversDB;Persist Security Info=False;User ID=gift-of-the-givers-admin;Password=Amakhosi@00001;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+    {
+        // DbContext is configured in Program.cs via DI. Do not store connection strings in code.
+        // If the context is used outside DI, configure it here using configuration or environment variables.
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
