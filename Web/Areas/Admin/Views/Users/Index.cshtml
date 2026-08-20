@@ -1,0 +1,35 @@
+@model IEnumerable<Service.Models.User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Users</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>UserId</th>
+            <th>Email</th>
+            <th>FirstName</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach(var u in Model)
+    {
+        <tr>
+            <td>@u.UserId</td>
+            <td>@u.Email</td>
+            <td>@u.FirstName</td>
+            <td>@u.Role</td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-area="Admin" asp-controller="Users" asp-action="Details" asp-route-id="@u.UserId">Details</a>
+                <a class="btn btn-sm btn-warning" asp-area="Admin" asp-controller="Users" asp-action="Edit" asp-route-id="@u.UserId">Edit</a>
+                <a class="btn btn-sm btn-danger" asp-area="Admin" asp-controller="Users" asp-action="Delete" asp-route-id="@u.UserId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

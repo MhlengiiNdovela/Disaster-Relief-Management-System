@@ -1,0 +1,15 @@
+@model Service.Models.User
+
+@{
+    ViewData["Title"] = "Delete User";
+}
+
+<h1>Delete User</h1>
+
+<div class="alert alert-danger">Are you sure you want to delete user <strong>@Model.Email</strong>?</div>
+
+<form asp-area="Admin" asp-controller="Users" asp-action="Delete" method="post">
+    <input type="hidden" asp-for="UserId" />
+    <button class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" asp-area="Admin" asp-controller="Users" asp-action="Index">Cancel</a>
+</form>

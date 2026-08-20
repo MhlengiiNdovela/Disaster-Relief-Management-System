@@ -13,5 +13,13 @@ public partial class Volunteer
 
     public string? Availability { get; set; }
 
+    public DateTime CreatedAt { get; set; }
+
+    public bool IsAvailable { get; set; }
+
+    public string? PhoneNumber { get; set; }
+
+    public string? Skills { get; set; }
+
     public virtual User User { get; set; } = null!;
 }

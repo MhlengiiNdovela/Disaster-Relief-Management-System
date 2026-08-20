@@ -1,13 +1,40 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Service.Data;
+using Service.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 // Add DbContext from Service project using configuration
 var conn = builder.Configuration.GetConnectionString("GiftOfTheGivers");
 if (!string.IsNullOrWhiteSpace(conn))
 {
-    builder.Services.AddDbContext<Service.Data.GiftDbContext>(options => options.UseSqlServer(conn));
+    builder.Services.AddDbContext<GiftDbContext>(options => options.UseSqlServer(conn));
 }
+
+// Simple cookie authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/Logout";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
+
+// Authorization policy (default require authenticated)
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
+// Password hasher for User
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 var app = builder.Build();
 
