@@ -9,15 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="App_Images\**" />
+    <Content Remove="App_Images\**" />
+    <EmbeddedResource Remove="App_Images\**" />
+    <None Remove="App_Images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.11" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App_Images\" />
     <Folder Include="App_Scripts\" />
   </ItemGroup>
 

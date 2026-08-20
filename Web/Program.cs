@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Service.Data;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Service.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Add DbContext from Service project using configuration
-var conn = builder.Configuration.GetConnectionString("GiftOfTheGivers");
+var conn = builder.Configuration.GetConnectionString("GiftOfTheGivers") ?? builder.Configuration["ConnectionStrings:GiftOfTheGivers"];
 if (!string.IsNullOrWhiteSpace(conn))
 {
     builder.Services.AddDbContext<GiftDbContext>(options => options.UseSqlServer(conn));
+}
+else
+{
+    // Fallback to in-memory provider for local development when no connection string is configured
+    builder.Services.AddDbContext<GiftDbContext>(options => options.UseInMemoryDatabase("Dev_GiftDb"));
 }
 
 // Simple cookie authentication
