@@ -1,0 +1,41 @@
+@model IEnumerable<Service.Models.ReliefRequest>
+
+@{
+    ViewData["Title"] = "Relief Requests";
+}
+
+<h1>Relief Requests</h1>
+
+<p>
+    <a class="btn btn-primary" href="/ReliefRequests/Create">Create New</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>RequestId</th>
+            <th>RequestType</th>
+            <th>Quantity</th>
+            <th>Priority</th>
+            <th>RequestedAt</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.RequestId</td>
+            <td>@item.RequestType</td>
+            <td>@item.Quantity</td>
+            <td>@item.Priority</td>
+            <td>@item.RequestedAt.ToLocalTime().ToString("g")</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" href="/ReliefRequests/Details/@item.RequestId">Details</a>
+                <a class="btn btn-sm btn-warning" href="/ReliefRequests/Edit/@item.RequestId">Edit</a>
+                <a class="btn btn-sm btn-danger" href="/ReliefRequests/Delete/@item.RequestId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

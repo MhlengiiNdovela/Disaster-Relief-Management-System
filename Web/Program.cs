@@ -2,6 +2,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// Add DbContext from Service project using configuration
+var conn = builder.Configuration.GetConnectionString("GiftOfTheGivers");
+if (!string.IsNullOrWhiteSpace(conn))
+{
+    builder.Services.AddDbContext<Service.Data.GiftDbContext>(options => options.UseSqlServer(conn));
+}
 
 var app = builder.Build();
 

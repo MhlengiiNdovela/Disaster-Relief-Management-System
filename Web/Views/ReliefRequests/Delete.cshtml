@@ -1,0 +1,15 @@
+@model Service.Models.ReliefRequest
+
+@{
+    ViewData["Title"] = "Delete Relief Request";
+}
+
+<h1>Delete</h1>
+
+<div class="alert alert-danger">Are you sure you want to delete request <strong>@Model.RequestId</strong>?</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="RequestId" />
+    <button class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" href="/ReliefRequests">Cancel</a>
+</form>
