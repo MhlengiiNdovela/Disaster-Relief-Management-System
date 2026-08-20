@@ -53,6 +53,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+// Serve static files (css, js, images)
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
