@@ -25,20 +25,22 @@ public class AccountController : Controller
     public IActionResult Login(string returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
-        return View();
+        return View(new Web.Models.LoginViewModel { ReturnUrl = returnUrl });
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(string email, string password, string returnUrl = null)
+    public async Task<IActionResult> Login(Web.Models.LoginViewModel model)
     {
-        var user = _db.Users.FirstOrDefault(u => u.Email == email);
+        if (!ModelState.IsValid) return View(model);
+
+        var user = _db.Users.FirstOrDefault(u => u.Email == model.Email);
         if (user == null)
         {
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return View();
+            return View(model);
         }
 
-        var res = _hasher.VerifyHashedPassword(user, user.PasswordHash, password);
+        var res = _hasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
         if (res == PasswordVerificationResult.Success)
         {
             var claims = new List<Claim>
@@ -52,35 +54,37 @@ public class AccountController : Controller
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)) return Redirect(returnUrl);
+            if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl)) return Redirect(model.ReturnUrl);
             return RedirectToAction("Index", "Home");
         }
 
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        return View();
+        return View(model);
     }
 
     [HttpGet]
     public IActionResult Register() => View();
 
     [HttpPost]
-    public async Task<IActionResult> Register(string email, string password, string fullName)
+    public async Task<IActionResult> Register(Web.Models.RegisterViewModel model)
     {
-        if (_db.Users.Any(u => u.Email == email))
+        if (!ModelState.IsValid) return View(model);
+
+        if (_db.Users.Any(u => u.Email == model.Email))
         {
             ModelState.AddModelError(string.Empty, "Email already in use.");
-            return View();
+            return View(model);
         }
 
         var user = new User
         {
-            Email = email,
-            FirstName = fullName,
+            Email = model.Email,
+            FirstName = model.FullName,
             Role = "User",
             CreatedAt = DateTime.UtcNow,
             IsActive = true
         };
-        user.PasswordHash = _hasher.HashPassword(user, password);
+        user.PasswordHash = _hasher.HashPassword(user, model.Password);
         _db.Users.Add(user);
         await _db.SaveChangesAsync();
 

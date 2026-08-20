@@ -3,7 +3,8 @@
 }
 
 <div class="text-center">
-    <div class="hero bg-light rounded">
+    @await Html.PartialAsync("_HomeCarousel")
+    <div class="hero bg-light rounded p-4">
         <div class="container d-flex align-items-center">
             <div class="me-4">
                 <img src="/logo.jpg" alt="Logo" style="height:80px;" />
