@@ -76,10 +76,16 @@ public class AccountController : Controller
             return View(model);
         }
 
+        var names = (model.FullName ?? string.Empty).Trim()
+            .Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+        var firstName = names.Length > 0 ? names[0] : string.Empty;
+        var lastName = names.Length > 1 ? names[1] : string.Empty;
+
         var user = new User
         {
             Email = model.Email,
-            FirstName = model.FullName,
+            FirstName = firstName,
+            LastName = lastName,
             Role = "User",
             CreatedAt = DateTime.UtcNow,
             IsActive = true
