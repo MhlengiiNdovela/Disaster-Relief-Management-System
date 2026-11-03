@@ -86,7 +86,7 @@ public class AccountController : Controller
             Email = model.Email,
             FirstName = firstName,
             LastName = lastName,
-            Role = "User",
+            Role = "Donor",
             CreatedAt = DateTime.UtcNow,
             IsActive = true
         };
