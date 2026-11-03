@@ -25,6 +25,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="API/**" />
+    <Compile Remove="Disaster Relief Management System/**" />
+    <Compile Remove="GiftOfTheGivers.Functions/**" />
+    <Content Remove="API/**" />
+    <Content Remove="Disaster Relief Management System/**" />
+    <Content Remove="GiftOfTheGivers.Functions/**" />
+    <EmbeddedResource Remove="API/**" />
+    <EmbeddedResource Remove="Disaster Relief Management System/**" />
+    <EmbeddedResource Remove="GiftOfTheGivers.Functions/**" />
+    <None Remove="API/**" />
+    <None Remove="Disaster Relief Management System/**" />
+    <None Remove="GiftOfTheGivers.Functions/**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Services\Data\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Services\Models\" />
