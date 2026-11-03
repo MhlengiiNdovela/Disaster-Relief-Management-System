@@ -38,11 +38,16 @@ public partial class GiftDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        var utcDefault = Database.ProviderName?.Contains("Sqlite", StringComparison.OrdinalIgnoreCase) == true
+            ? "CURRENT_TIMESTAMP"
+            : "(getdate())";
+
         modelBuilder.Entity<Donation>(entity =>
         {
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Currency).HasMaxLength(3);
             entity.Property(e => e.Description).HasMaxLength(500);
-            entity.Property(e => e.DonationDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.DonationDate).HasDefaultValueSql(utcDefault);
             entity.Property(e => e.DonationType).HasMaxLength(50);
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
@@ -62,7 +67,7 @@ public partial class GiftDbContext : DbContext
         {
             entity.HasKey(e => e.ProjectId);
 
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql(utcDefault);
             entity.Property(e => e.Location).HasMaxLength(255);
             entity.Property(e => e.ProjectName).HasMaxLength(200);
             entity.Property(e => e.Status)
@@ -83,7 +88,7 @@ public partial class GiftDbContext : DbContext
                 .HasMaxLength(50)
                 .HasDefaultValue("Medium");
             entity.Property(e => e.RequestType).HasMaxLength(100);
-            entity.Property(e => e.RequestedAt).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.RequestedAt).HasDefaultValueSql(utcDefault);
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
                 .HasDefaultValue("Pending");
@@ -100,7 +105,7 @@ public partial class GiftDbContext : DbContext
 
         modelBuilder.Entity<Resource>(entity =>
         {
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql(utcDefault);
             entity.Property(e => e.IsAvailable).HasDefaultValue(true);
             entity.Property(e => e.Location).HasMaxLength(255);
             entity.Property(e => e.Quantity).HasColumnType("decimal(18, 2)");
@@ -113,7 +118,7 @@ public partial class GiftDbContext : DbContext
         {
             entity.HasKey(e => e.AllocationId);
 
-            entity.Property(e => e.AllocationDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.AllocationDate).HasDefaultValueSql(utcDefault);
             entity.Property(e => e.Notes).HasMaxLength(500);
             entity.Property(e => e.Quantity).HasColumnType("decimal(18, 2)");
 
@@ -137,7 +142,7 @@ public partial class GiftDbContext : DbContext
         {
             entity.HasIndex(e => e.Email, "UQ_Users_Email").IsUnique();
 
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql(utcDefault);
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.FirstName).HasMaxLength(100);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
@@ -152,7 +157,7 @@ public partial class GiftDbContext : DbContext
 
             entity.Property(e => e.Address).HasMaxLength(500);
             entity.Property(e => e.Availability).HasMaxLength(100);
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql(utcDefault);
             entity.Property(e => e.IsAvailable).HasDefaultValue(true);
             entity.Property(e => e.PhoneNumber).HasMaxLength(30);
             entity.Property(e => e.Skills).HasMaxLength(500);
