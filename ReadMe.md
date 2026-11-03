@@ -6,6 +6,14 @@ The **Disaster Relief Management System** is a comprehensive C# web application 
 
 The platform will provide a centralised digital hub for managing disaster-response activities, coordinating volunteers, allocating resources, and monitoring relief efforts. By bringing these processes together into a single system, the application aims to improve operational efficiency, reduce response times, and ensure that critical resources reach affected communities where they are needed most.
 
+## Live site
+
+The web application is hosted on Render:
+
+**https://gift-of-the-givers-8f3i.onrender.com**
+
+The home page is public. Sign in with the demo accounts below. The free instance sleeps after a period without visitors, so the first request can take about a minute.
+
 ## Project Objectives
 
 The system aims to:
@@ -79,14 +87,11 @@ dotnet run --project Web
 
 ## Free deployment (GitHub + Render)
 
-Azure DevOps and the Azure for Students subscription are not required for this path.
+The source repository is [MhlengiiNdovela/Disaster-Relief-Management-System](https://github.com/MhlengiiNdovela/Disaster-Relief-Management-System). Azure DevOps and the Azure for Students subscription are not required for this host.
 
-1. Create a free GitHub repository and push this project to it.
-2. GitHub Actions (`.github/workflows/ci.yml`) builds the solution and runs the tests. GitHub Projects can be used as the Kanban board in place of Azure Boards.
-3. On [Render](https://render.com), create a free Blueprint from this repository. `render.yaml` builds the root `Dockerfile` and publishes the web app.
-4. Open the Render URL. The home page is public. Sign in with the demo admin account above.
+GitHub Actions (`.github/workflows/ci.yml`) builds the solution and runs the tests on every push. `render.yaml` builds the root `Dockerfile` and publishes the Web project as the free Render service `gift-of-the-givers`. A push to `master` updates that service.
 
-An existing Azure SQL connection string is still honoured when `ConnectionStrings:GiftOfTheGivers` contains `Server=`.
+An existing Azure SQL connection string is still honoured when `ConnectionStrings:GiftOfTheGivers` contains `Server=`. When it does not, the site uses SQLite and creates the database on startup.
 
 ## Technology
 
