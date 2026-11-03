@@ -1,0 +1,7 @@
+@{
+    ViewData["Title"] = "Volunteer registered";
+}
+
+<h1>Thank you@(TempData["VolunteerName"] is string name ? $", {name}" : "")</h1>
+<p>Your volunteer interest has been recorded. An employee can now see your skills and availability on the dashboard.</p>
+<a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Back to home</a>
