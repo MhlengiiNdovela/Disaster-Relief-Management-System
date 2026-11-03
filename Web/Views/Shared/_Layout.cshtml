@@ -3,29 +3,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Web</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"] - Gift of the Givers</title>
+    <link rel="icon" href="~/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="~/favicon-32.png" asp-append-version="true" />
+    <link rel="apple-touch-icon" href="~/apple-touch-icon.png" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <style>
-        :root {
-            --brand-primary: #1b4f72; /* approximate from logo */
-            --brand-accent: #e65a28;
-        }
-        .navbar-brand img { height: 40px; }
-        .btn-primary { background-color: var(--brand-primary); border-color: var(--brand-primary); }
-        .bg-brand { background-color: var(--brand-primary); color: #fff; }
-        .hero { padding: 3rem; background: linear-gradient(90deg, rgba(27,79,114,0.05), rgba(230,90,40,0.03)); }
-    </style>
-    <!-- removed invalid stylesheet reference -->
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
                 <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/logo.jpg" alt="logo" style="height:36px; margin-right:8px;" />
-                    <span style="font-weight:600">Gift of the Givers</span>
+                    <img class="brand-logo" src="~/images/logo.jpg" alt="Gift of the Givers logo" />
+                    <span>Gift of the Givers</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +26,9 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Donations" asp-action="Index">Donate</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Volunteers" asp-action="Register">Volunteer</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="ReliefRequests" asp-action="Index">Relief Requests</a></li>
                     </ul>
                     <ul class="navbar-nav">
@@ -43,9 +37,17 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">@User.Identity.Name</a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                    @if (User.IsInRole("Employee") || User.IsInRole("Admin"))
+                                    {
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Employee" asp-action="Index">Employee dashboard</a></li>
+                                    }
                                     @if (User.IsInRole("Admin"))
                                     {
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin</a></li>
+                                    }
+                                    @if (User.IsInRole("Donor") || User.IsInRole("Admin") || User.IsInRole("Employee"))
+                                    {
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Donations" asp-action="Mine">My donations</a></li>
                                     }
                                     <li>
                                         <form method="post" asp-controller="Account" asp-action="Logout" class="p-2">
@@ -65,15 +67,16 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container page-shell">
+        <main role="main" class="pt-4">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="site-footer py-4 mt-auto">
+        <div class="container d-flex flex-column flex-sm-row justify-content-between gap-2">
+            <span>&copy; 2026 Gift of the Givers Relief Management</span>
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
