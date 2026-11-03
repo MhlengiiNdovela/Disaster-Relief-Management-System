@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GiftOfTheGivers.Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7071"
+    }
+  }
+}
