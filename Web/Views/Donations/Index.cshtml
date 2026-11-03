@@ -1,0 +1,53 @@
+@model Web.Models.DonationFormViewModel
+@{
+    ViewData["Title"] = "Donate";
+}
+
+<h1>Donate</h1>
+<p class="text-muted">Choose a one-time or recurring gift. Amounts are recorded for the Foundation and are not sent to a payment gateway.</p>
+
+<form method="post" asp-action="Index" class="col-lg-7">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="DonorName" class="form-label"></label>
+        <input asp-for="DonorName" class="form-control" />
+        <span asp-validation-for="DonorName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Amount" class="form-label"></label>
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Currency" class="form-label"></label>
+            <select asp-for="Currency" class="form-select">
+                <option value="ZAR">ZAR</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+            </select>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ReliefProjectId" class="form-label"></label>
+        <select asp-for="ReliefProjectId" class="form-select" asp-items="ViewBag.Projects"></select>
+    </div>
+    <div class="form-check mb-3">
+        <input asp-for="IsRecurring" class="form-check-input" />
+        <label asp-for="IsRecurring" class="form-check-label"></label>
+    </div>
+    <button class="btn btn-primary">Submit donation</button>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a class="btn btn-link" asp-action="Mine">My donations</a>
+    }
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

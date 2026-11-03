@@ -1,0 +1,36 @@
+@model IEnumerable<Service.Models.Donation>
+@{
+    ViewData["Title"] = "My donations";
+}
+
+<h1>My donations</h1>
+@if (!Model.Any())
+{
+    <p>You have not recorded a donation yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Project</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var donation in Model)
+        {
+            <tr>
+                <td>@donation.DonationDate.ToString("yyyy-MM-dd")</td>
+                <td>@donation.Project.ProjectName</td>
+                <td>@donation.DonationType</td>
+                <td>@donation.Currency @donation.Amount?.ToString("N2")</td>
+                <td><a asp-action="Certificate" asp-route-id="@donation.DonationId">Certificate</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
