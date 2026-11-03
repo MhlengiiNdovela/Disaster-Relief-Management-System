@@ -1,6 +1,6 @@
 # Visual Studio
 .vs/
-.vscode/
+
 *.user
 *.suo
 *.userosscache
@@ -67,6 +67,12 @@ coverage*/
 # Resharper
 _ReSharper*/
 *.DotSettings.user
+
+# Office lock files
+~$*
+
+# Local commit command list. Do not publish.
+commit-groups.txt
 
 # Azure Functions local settings
 local.settings.json

@@ -1,0 +1,40 @@
+using Microsoft.AspNetCore.Mvc;
+using Service.Interfaces;
+using Service.Models;
+
+namespace Disaster_Relief_Management_System.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ReliefController : ControllerBase
+{
+    private readonly IReliefService _service;
+
+    public ReliefController(IReliefService service)
+    {
+        _service = service;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var items = await _service.GetAllAsync();
+        return Ok(items);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(int id)
+    {
+        var item = await _service.GetByIdAsync(id);
+        if (item == null) return NotFound();
+        return Ok(item);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(ReliefRequest request)
+    {
+        var created = await _service.CreateAsync(request);
+        // scaffolded model uses RequestId as the key
+        return CreatedAtAction(nameof(Get), new { id = created.RequestId }, created);
+    }
+}

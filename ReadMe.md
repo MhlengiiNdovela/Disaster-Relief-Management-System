@@ -65,6 +65,29 @@ The application is expected to include functionality for:
 - Monitor outstanding relief requests.
 - Generate operational reports and statistics.
 
+## Run without Azure
+
+The web app uses SQLite when no SQL Server connection string is configured, and it generates the donation tax certificate inside the site when Azure Functions is not available. Demo accounts are created on first launch:
+
+- Admin: `admin@giftofthegivers.org` / `Admin#12345`
+- Employee: `employee@giftofthegivers.org` / `Employee#12345`
+- Donor: `donor@giftofthegivers.org` / `Donor#12345`
+
+```powershell
+dotnet run --project Web
+```
+
+## Free deployment (GitHub + Render)
+
+Azure DevOps and the Azure for Students subscription are not required for this path.
+
+1. Create a free GitHub repository and push this project to it.
+2. GitHub Actions (`.github/workflows/ci.yml`) builds the solution and runs the tests. GitHub Projects can be used as the Kanban board in place of Azure Boards.
+3. On [Render](https://render.com), create a free Blueprint from this repository. `render.yaml` builds the root `Dockerfile` and publishes the web app.
+4. Open the Render URL. The home page is public. Sign in with the demo admin account above.
+
+An existing Azure SQL connection string is still honoured when `ConnectionStrings:GiftOfTheGivers` contains `Server=`.
+
 ## Technology
 
 The project will be developed using modern software engineering practices and a C#/.NET technology stack.
